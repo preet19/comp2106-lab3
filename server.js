@@ -6,35 +6,35 @@ var connect = require('connect');
 
 // link to the url module to parse url parameters
 
-var querystring = require('querystring');
+var query = require('querystring');
 
 var app = connect();
 
-var calculateTax = function(req, res, next) {
+var math = function(req, res, next) {
     // get the values from url's querystring
 
-    var qs = querystring.parse(require('url').parse(req.url).query);;
+    var queryString = query.parse(require('url').parse(req.url).query);;
 
-    var qss = qs.method.valueOf();
-    var x = qs.x.valueOf();
-    var y = qs.y.valueOf();
+    var method = queryString.method.valueOf();
+    var x = queryString.x.valueOf();
+    var y = queryString.y.valueOf();
 
-       if (qss == 'add') {
+       if (method == 'add') {
            var added = +x + +y;
            res.end('addition: '+ x +'+'+ y +'=' + added.toString());
        }
 
-       else if (qss == 'subtract') {
+       else if (method == 'subtract') {
            var sub = +x - +y;
            res.end('substraction: '+ x +'-'+ y +'=' + sub.toString());
        }
 
-       else if (qss == 'multiply') {
+       else if (method == 'multiply') {
             var mul = +x * +y;
             res.end('multiply: '+ x +'*'+ y +'=' + mul.toString());
        }
 
-       else if (qss == 'divide') {
+       else if (method == 'divide') {
            var mul = +x / +y;
            res.end('divide: '+ x +'/'+ y +'=' + mul.toString());
        }
@@ -46,7 +46,7 @@ var calculateTax = function(req, res, next) {
 
 };
 
-app.use(calculateTax);
+app.use(math);
 
 // start the server on port 3000
 app.listen(3000);
